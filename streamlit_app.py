@@ -1,29 +1,11 @@
 import streamlit as st
 from code_editor import code_editor
 
+from editor_config import ACE_STYLE, BUTTONS, INFO_BAR
+
 if not "code" in st.session_state:
     st.session_state.code = "st.write('Hello, world!')"
 
-buttons = [
-    {
-        "name": "copy",
-        "feather": "Copy",
-        "hasText": True,
-        "alwaysOn": True,
-        "commands": ["copyAll"],
-        "style": {"top": "0rem", "right": "0.4rem"},
-    },
-    {
-        "name": "Run",
-        "feather": "Play",
-        "primary": True,
-        "hasText": True,
-        "showWithText": False,
-        "alwaysOn": True,
-        "commands": ["submit"],
-        "style": {"bottom": "0rem", "right": "0.4rem"},
-    },
-]
 
 with st.sidebar:
     run_on_change = st.toggle("Run code on change", value=True)
@@ -33,7 +15,7 @@ with st.sidebar:
 
     response_dict = code_editor(
         st.session_state.code,
-        height=[10, 2000],
+        height=[10, 2000], # type: ignore
         key="code_editor",
         lang="python",
         options={
@@ -42,11 +24,13 @@ with st.sidebar:
         },
         props={
             "tabSize": 2,
+            "style": ACE_STYLE,
             # "readOnly": True,
         },
         response_mode="debounce",
         focus=True,
-        buttons=buttons,
+        buttons=BUTTONS,
+        info=INFO_BAR,
     )
 
 
