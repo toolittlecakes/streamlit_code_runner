@@ -2,4 +2,5 @@
 gatherUsageStats = false
 
 [theme]
+base = "light"
 primaryColor="#8A8A8A"
