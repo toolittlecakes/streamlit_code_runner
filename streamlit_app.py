@@ -4,6 +4,27 @@ from code_editor import code_editor
 if not "code" in st.session_state:
     st.session_state.code = "st.write('Hello, world!')"
 
+buttons = [
+    {
+        "name": "copy",
+        "feather": "Copy",
+        "hasText": True,
+        "alwaysOn": True,
+        "commands": ["copyAll"],
+        "style": {"top": "0rem", "right": "0.4rem"},
+    },
+    {
+        "name": "Run",
+        "feather": "Play",
+        "primary": True,
+        "hasText": True,
+        "showWithText": False,
+        "alwaysOn": True,
+        "commands": ["submit"],
+        "style": {"bottom": "0rem", "right": "0.4rem"},
+    },
+]
+
 with st.sidebar:
     run_on_change = st.toggle("Run code on change", value=True)
     if not run_on_change:
@@ -25,6 +46,7 @@ with st.sidebar:
         },
         response_mode="debounce",
         focus=True,
+        buttons=buttons,
     )
 
 
