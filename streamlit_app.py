@@ -1,38 +1,38 @@
 import streamlit as st
 from code_editor import code_editor
 
+if not "code" in st.session_state:
+    st.session_state.code = "st.write('Hello, world!')"
+
 with st.sidebar:
     run_on_change = st.toggle("Run code on change", value=True)
     if not run_on_change:
         with st.container(border=True):
             st.markdown("Manual run: `Ctrl + Enter` or `⌘ + Enter`")
+
     response_dict = code_editor(
-        "st.write('Hello, world!')",
+        st.session_state.code,
         height=[10, 2000],
-        key="code",
+        key="code_editor",
         lang="python",
         options={
             "wrap": True,
             "showLineNumbers": True,
-            # "displayIndentGuides": True,
-            # "foldStyle": "markbegin",
-            # "foldStyle": "markbeginend",
         },
         props={
             "tabSize": 2,
-            # "focus": True,
-            # "showPrintMargin": True,
-            # "showGutter": False,
             # "readOnly": True,
-            # "enableBasicAutocompletion": True,
         },
         response_mode="debounce",
-        # response_mode=["debounce", "blur"],
+        focus=True,
     )
+
 
 if (
     response_dict["type"] == "change"
     and run_on_change
     or response_dict["type"] == "submit"
 ):
-    exec(response_dict["text"])
+    st.session_state.code = response_dict["text"]
+
+exec(st.session_state.code)
