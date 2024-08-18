@@ -8,7 +8,7 @@ if not "code" in st.session_state:
 
 
 with st.sidebar:
-    run_on_change = st.toggle("Run code on change", value=True)
+    run_on_change = st.toggle("Run code on change", value=True, key="run_on_change")
     if not run_on_change:
         with st.container(border=True):
             st.markdown("Manual run: `Ctrl + Enter` or `⌘ + Enter`")
