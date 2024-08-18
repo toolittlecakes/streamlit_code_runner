@@ -3,6 +3,9 @@ from code_editor import code_editor
 
 with st.sidebar:
     run_on_change = st.toggle("Run code on change", value=True)
+    if not run_on_change:
+        with st.container(border=True):
+            st.markdown("Manual run: `Ctrl + Enter` or `⌘ + Enter`")
     response_dict = code_editor(
         "st.write('Hello, world!')",
         height=[10, 2000],
