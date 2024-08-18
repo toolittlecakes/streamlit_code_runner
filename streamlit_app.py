@@ -5,7 +5,7 @@ with st.sidebar:
     run_on_change = st.toggle("Run code on change", value=True)
     response_dict = code_editor(
         "st.write('Hello, world!')",
-        height=[20, 20],
+        height=[10, 2000],
         key="code",
         lang="python",
         options={
