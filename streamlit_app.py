@@ -1,3 +1,4 @@
+import sys
 import streamlit as st
 from code_editor import code_editor
 
@@ -41,4 +42,9 @@ if (
 ):
     st.session_state.code = response_dict["text"]
 
-exec(st.session_state.code)
+import traceback
+try:
+    exec(st.session_state.code)
+except:
+    exc_type, exc_value, exc_traceback = sys.exc_info()
+    st.error(f"**{exc_type.__name__}**:\n{exc_value}") # type: ignore
