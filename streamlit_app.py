@@ -28,7 +28,7 @@ with st.sidebar:
             "style": ACE_STYLE,
             # "readOnly": True,
         },
-        response_mode="debounce",
+        response_mode=["blur", "debounce"], # type: ignore
         focus=True,
         buttons=BUTTONS,
         info=INFO_BAR,
@@ -42,9 +42,8 @@ if (
 ):
     st.session_state.code = response_dict["text"]
 
-import traceback
 try:
-    exec(st.session_state.code)
+    exec(st.session_state.code, globals(), locals())
 except:
     exc_type, exc_value, exc_traceback = sys.exc_info()
     st.error(f"**{exc_type.__name__}**:\n{exc_value}") # type: ignore
