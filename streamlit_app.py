@@ -42,8 +42,8 @@ if (
 ):
     st.session_state.code = response_dict["text"]
 
-    try:
-        exec(st.session_state.code, globals(), locals())
-    except:
-        exc_type, exc_value, exc_traceback = sys.exc_info()
-        st.error(f"**{exc_type.__name__}**:\n{exc_value}") # type: ignore
+try:
+    exec(st.session_state.code, globals(), locals())
+except:
+    exc_type, exc_value, exc_traceback = sys.exc_info()
+    st.error(f"**{exc_type.__name__}**:\n{exc_value}") # type: ignore
